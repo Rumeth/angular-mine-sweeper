@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Cell } from '../cell/cell';
+import { Cell } from '../cell/cell.interface';
 
 @Injectable()
 export class FieldService {
