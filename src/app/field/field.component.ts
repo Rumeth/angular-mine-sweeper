@@ -11,9 +11,9 @@ import { Field } from './field.interface';
 })
 export class FieldComponent implements OnInit {
   field: Field = {
-    rows:3,
-    columns:3,
-    mines:2,
+    rows:15,
+    columns:15,
+    mines:5,
     cells:[]
   };
 
