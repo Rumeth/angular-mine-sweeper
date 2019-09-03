@@ -10,11 +10,12 @@ import { Field } from './field.interface';
   styleUrls: ['./field.component.css']
 })
 export class FieldComponent implements OnInit {
-  field: Field = {};
-
-  rows = 3;
-  columns = 3;
-  mines = 2;
+  field: Field = {
+    rows:3,
+    columns:3,
+    mines:2,
+    cells:[]
+  };
 
   constructor(private fieldService: FieldService) { }
 
@@ -23,7 +24,7 @@ export class FieldComponent implements OnInit {
   }
 
   getFieldCells() {
-    this.field.cells = this.fieldService.getFieldCells(this.rows, this.columns, this.mines);
+    this.fieldService.getFieldCells(this.field);
   }
 
 }

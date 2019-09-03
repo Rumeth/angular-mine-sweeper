@@ -1,3 +1,5 @@
-<<p>
-field works!
-</p>>
+<div *ngFor="let row of field.cells">
+	<div *ngFor="let column of row">
+		{{column.proximity}}{{column.mine}} 
+	</div>
+</div>

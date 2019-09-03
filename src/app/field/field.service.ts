@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { Field } from './field.interface';
 import { Cell } from '../cell/cell.interface';
 
 @Injectable()
@@ -7,42 +8,37 @@ export class FieldService {
 
   constructor() { }
 
-  getFieldCells(rows: number, columns: number, mines: number) {
-    const cells: Cell[][] = [];
-    for (let i = 0; i < rows; i++) {
-      cells[i] = [];
+  getFieldCells(field:Field) {
+    for (let i = 0; i < field.rows; i++) {
+      field.cells[i] = [];
 
-      for (let j = 0; j < columns; j++) {
-        cells[i][j] = {
+      for (let j = 0; j < field.columns; j++) {
+        field.cells[i][j] = {
           open: false
         };
       }
     }
 
-    this.setMines(cells, mines);
-
-    return cells;
+    this.setMines(field);
   }
 
-  setMines(cells: Cell[][], mines: number) {
-    const rows = cells.length;
-    const columns = cells[0].length;
-
+  setMines(field:Field) {
+    let mines=field.mines;
     while (mines > 0) {
-      this.setCellMine(rows, columns, cells);
+      this.setCellMine(field);
       mines--;
     }
   }
 
-  setCellMine(rows: number, columns: number, cells: Cell[][]) {
-    const row = Math.floor(Math.random() * Math.floor(rows));
-    const column = Math.floor(Math.random() * Math.floor(columns));
+  setCellMine(field:Field) {
+    const row = Math.floor(Math.random() * Math.floor(field.rows));
+    const column = Math.floor(Math.random() * Math.floor(field.columns));
 
-    if (cells[row] && cells[row][column] && !cells[row][column].mine) {
-      return cells[row][column];
+    if (field.cells[row] && field.cells[row][column] && !field.cells[row][column].mine) {
+      field.cells[row][column].mine=true
     }
     else {
-      return this.setCellMine(rows, columns, cells);
+      return this.setCellMine(field);
     }
   }
 }
