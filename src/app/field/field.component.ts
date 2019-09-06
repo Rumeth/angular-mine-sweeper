@@ -12,9 +12,9 @@ import { Cell } from '../cell/cell.interface';
 })
 export class FieldComponent implements OnInit {
   field: Field = {
-    rows: 15,
-    columns: 15,
-    mines: 5,
+    rows: 150,
+    columns: 150, 
+    mines: 15,
     cells: []
   };
 

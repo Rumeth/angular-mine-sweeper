@@ -18,7 +18,6 @@ export class CellComponent implements OnInit {
   }
 
   open() {
-    console.log('open');
     if (!this.cell.flag && !this.cell.open) {
       this.cell.open = true;
       this.opened.emit(this.cell);
@@ -26,7 +25,6 @@ export class CellComponent implements OnInit {
   }
 
   onRightClick() {
-    console.log('Right Click');
     this.cell.flag = !this.cell.flag;
     return false;
   }
