@@ -9,15 +9,21 @@ export class FieldService {
   constructor() { }
 
   getFieldCells(field:Field) {
+    let p=1;
     for (let i = 0; i < field.rows; i++) {
       field.cells[i] = [];
 
       for (let j = 0; j < field.columns; j++) {
         field.cells[i][j] = {
-          open: false
+          open: false,
+          proximity:p
         };
+
+        p++;
       }
     }
+
+    console.log(field);
 
     this.setMines(field);
   }

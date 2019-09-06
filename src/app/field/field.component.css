@@ -1,5 +1,4 @@
 .grid-row{
   display:grid;
-  grid-template-columns: repeat(auto-fill, 1fr);
-  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-auto-flow: column;
 }

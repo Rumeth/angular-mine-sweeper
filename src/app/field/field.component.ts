@@ -12,7 +12,7 @@ import { Field } from './field.interface';
 export class FieldComponent implements OnInit {
   field: Field = {
     rows:15,
-    columns:15,
+    columns:150,
     mines:5,
     cells:[]
   };
