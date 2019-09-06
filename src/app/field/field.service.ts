@@ -8,18 +8,16 @@ export class FieldService {
 
   constructor() { }
 
-  getFieldCells(field:Field) {
-    let p=1;
+  getFieldCells(field: Field) {
     for (let i = 0; i < field.rows; i++) {
       field.cells[i] = [];
 
       for (let j = 0; j < field.columns; j++) {
         field.cells[i][j] = {
           open: false,
-          proximity:p
+          row: i,
+          column: j
         };
-
-        p++;
       }
     }
 
@@ -28,20 +26,20 @@ export class FieldService {
     this.setMines(field);
   }
 
-  setMines(field:Field) {
-    let mines=field.mines;
+  setMines(field: Field) {
+    let mines = field.mines;
     while (mines > 0) {
       this.setCellMine(field);
       mines--;
     }
   }
 
-  setCellMine(field:Field) {
+  setCellMine(field: Field) {
     const row = Math.floor(Math.random() * Math.floor(field.rows));
     const column = Math.floor(Math.random() * Math.floor(field.columns));
 
     if (field.cells[row] && field.cells[row][column] && !field.cells[row][column].mine) {
-      field.cells[row][column].mine=true
+      field.cells[row][column].mine = true
     }
     else {
       return this.setCellMine(field);

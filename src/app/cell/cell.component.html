@@ -1,3 +1,5 @@
-<div class="cell-wrapper border">
-  <i *ngIf="cell.mine" class="fas fa-bomb text-danger"></i>
+<div class="cell-wrapper border" (click)="open()" (contextmenu)="onRightClick()">
+  <i *ngIf="cell.open && cell.mine" class="fas fa-bomb text-danger"></i>
+  <i *ngIf="cell.flag" class="fas fa-flag text-warning"></i>
+  <span *ngIf="cell.open && !cell.mine">{{cell.proximity}}</span>
 </div>

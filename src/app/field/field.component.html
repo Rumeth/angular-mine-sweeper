@@ -1,7 +1,7 @@
 <div class="p-3 d-inline-block">
 	<div *ngFor="let row of field.cells" class="grid-row">
 		<div *ngFor="let cell of row" class="grid-col">
-			<app-cell [cell]="cell"></app-cell>
+			<app-cell [cell]="cell" (opened)="open($event)"></app-cell>
 		</div>
 	</div>
 </div>
