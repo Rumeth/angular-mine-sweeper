@@ -16,7 +16,8 @@ export class FieldService {
         field.cells[i][j] = {
           open: false,
           row: i,
-          column: j
+          column: j,
+          styles: 'bg-dark'
         };
       }
     }

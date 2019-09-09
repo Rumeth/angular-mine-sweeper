@@ -12,6 +12,8 @@ export class CellComponent implements OnInit {
 
   @Output() opened = new EventEmitter();
 
+  @Output() flagged = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -23,7 +25,7 @@ export class CellComponent implements OnInit {
   }
 
   onRightClick() {
-    this.cell.flag = !this.cell.flag;
+    this.flagged.emit(this.cell);
     return false;
   }
 }

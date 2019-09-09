@@ -7,5 +7,7 @@ export interface Field {
 
   mines?: number;
 
+  flags?: number;
+
   cells?: Cell[]; 
 }

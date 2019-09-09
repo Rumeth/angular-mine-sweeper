@@ -47,7 +47,7 @@ export class FieldComponent implements OnInit {
               proximity++;
             }
 
-            if (spread && proximityCell.hash !== cell.hash && !proximityCell.mine && this.getChance()) {
+            if (spread && proximityCell.hash !== cell.hash && !proximityCell.mine && !proximityCell.flag && this.getChance()) {
               proximityCell.hash = cell.hash;
               this.open(proximityCell);
             }
@@ -56,10 +56,30 @@ export class FieldComponent implements OnInit {
         cell.proximity = proximity;
       }
       cell.open = true;
+
+      cell.styles = this.getCellStyle(cell);
+    }
+  }
+
+  flag(cell: Cell) {
+    if (!cell.open) {
+      cell.flag = !cell.flag;
     }
   }
 
   getChance() {
     return Math.random() >= 0.5;
+  }
+
+  getCellStyle(cell: Cell) {
+    const styles = [];
+
+    if (!cell.mine && cell.open) {
+      if (cell.proximity > 0) {
+        styles.push('text-success');
+      }
+    }
+
+    return styles.join(' ');
   }
 }

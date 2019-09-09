@@ -12,4 +12,6 @@ export interface Cell {
   proximity?: number;
 
   hash?: string;
+
+  styles?: string;
 }
