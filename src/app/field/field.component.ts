@@ -12,8 +12,8 @@ import { Cell } from '../cell/cell.interface';
 })
 export class FieldComponent implements OnInit {
   field: Field = {
-    rows: 150,
-    columns: 150, 
+    rows: 15,
+    columns: 15,
     mines: 15,
     cells: []
   };
@@ -35,14 +35,31 @@ export class FieldComponent implements OnInit {
   }
 
   open(cell: Cell) {
-    if (!cell.mine) {
-      let proximity = 0;
-      for (let row of this.proximity) {
-        if (this.field.cells[cell.row + row[0]] && this.field.cells[cell.row + row[0]][cell.column + row[1]] && this.field.cells[cell.row + row[0]][cell.column + row[1]].mine) {
-          proximity++;
+    console.log(cell);
+    if (!cell.flag && !cell.open) {
+      if (!cell.mine && !cell.proximity) {
+        let proximity = 0;
+        const spread = this.getChance();
+        for (let row of this.proximity) {
+          if (this.field.cells[cell.row + row[0]] && this.field.cells[cell.row + row[0]][cell.column + row[1]]) {
+            const proximityCell: Cell = this.field.cells[cell.row + row[0]][cell.column + row[1]];
+            if (proximityCell.mine) {
+              proximity++;
+            }
+
+            if (spread && proximityCell.hash !== cell.hash && !proximityCell.mine && this.getChance()) {
+              proximityCell.hash = cell.hash;
+              this.open(proximityCell);
+            }
+          }
         }
+        cell.proximity = proximity;
       }
-      cell.proximity = proximity;
+      cell.open = true;
     }
+  }
+
+  getChance() {
+    return Math.random() >= 0.5;
   }
 }

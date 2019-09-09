@@ -18,10 +18,8 @@ export class CellComponent implements OnInit {
   }
 
   open() {
-    if (!this.cell.flag && !this.cell.open) {
-      this.cell.open = true;
-      this.opened.emit(this.cell);
-    }
+    this.cell.hash = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    this.opened.emit(this.cell);
   }
 
   onRightClick() {

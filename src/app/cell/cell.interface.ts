@@ -1,13 +1,15 @@
 export interface Cell {
-  open?:boolean;
+  open?: boolean;
 
-  mine?:boolean;
+  mine?: boolean;
 
-  flag?:boolean;
+  flag?: boolean;
 
-  row?:number;
+  row?: number;
 
-  column?:number;
+  column?: number;
 
-  proximity?:number;
+  proximity?: number;
+
+  hash?: string;
 }
