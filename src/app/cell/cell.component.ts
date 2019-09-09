@@ -20,12 +20,16 @@ export class CellComponent implements OnInit {
   }
 
   open() {
-    this.cell.hash = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-    this.opened.emit(this.cell);
+    if (!this.cell.disabled) {
+      this.cell.hash = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+      this.opened.emit(this.cell);
+    }
   }
 
   onRightClick() {
-    this.flagged.emit(this.cell);
+    if (!this.cell.disabled) {
+      this.flagged.emit(this.cell);
+    }
     return false;
   }
 }

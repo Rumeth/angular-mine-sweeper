@@ -64,6 +64,11 @@ export class FieldComponent implements OnInit {
   flag(cell: Cell) {
     if (!cell.open) {
       cell.flag = !cell.flag;
+      if (cell.flag) {
+        this.field.mines--;
+      } else {
+        this.field.mines++;
+      }
     }
   }
 

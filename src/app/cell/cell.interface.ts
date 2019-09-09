@@ -14,4 +14,6 @@ export interface Cell {
   hash?: string;
 
   styles?: string;
+
+  disabled?:boolean;
 }
