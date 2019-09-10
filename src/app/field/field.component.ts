@@ -15,9 +15,10 @@ export class FieldComponent implements OnInit {
     count: {
       rows: 15,
       columns: 15,
-      mines: 15
+      mines: 150
     },
-    cells: []
+    cells: [],
+    mines: []
   };
 
   proximity = [
@@ -41,7 +42,7 @@ export class FieldComponent implements OnInit {
     if (!cell.flag && !cell.open) {
       if (!cell.mine && !cell.proximity) {
         let proximity = 0;
-        const spread = this.getChance();
+        const spread = this.fieldService.getChance();
         for (let row of this.proximity) {
           if (this.field.cells[cell.row + row[0]] && this.field.cells[cell.row + row[0]][cell.column + row[1]]) {
             const proximityCell: Cell = this.field.cells[cell.row + row[0]][cell.column + row[1]];
@@ -49,7 +50,7 @@ export class FieldComponent implements OnInit {
               proximity++;
             }
 
-            if (spread && proximityCell.hash !== cell.hash && !proximityCell.mine && !proximityCell.flag && this.getChance()) {
+            if (spread && proximityCell.hash !== cell.hash && !proximityCell.mine && !proximityCell.flag && this.fieldService.getChance()) {
               proximityCell.hash = cell.hash;
               this.open(proximityCell);
             }
@@ -59,7 +60,7 @@ export class FieldComponent implements OnInit {
       }
       cell.open = true;
 
-      cell.styles = this.getCellStyle(cell);
+      cell.styles = this.fieldService.getCellStyle(cell);
     }
   }
 
@@ -72,21 +73,5 @@ export class FieldComponent implements OnInit {
         this.field.count.mines++;
       }
     }
-  }
-
-  getChance() {
-    return Math.random() >= 0.5;
-  }
-
-  getCellStyle(cell: Cell) {
-    const styles = [];
-
-    if (!cell.mine && cell.open) {
-      if (cell.proximity > 0) {
-        styles.push('text-success');
-      }
-    }
-
-    return styles.join(' ');
   }
 }

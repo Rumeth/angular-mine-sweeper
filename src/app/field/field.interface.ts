@@ -4,6 +4,8 @@ export interface Field {
   count?: Count;
 
   cells?: Cell[];
+
+  mines?:Cell[];
 }
 
 export interface Count {
