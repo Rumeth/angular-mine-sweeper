@@ -12,9 +12,11 @@ import { Cell } from '../cell/cell.interface';
 })
 export class FieldComponent implements OnInit {
   field: Field = {
-    rows: 15,
-    columns: 15,
-    mines: 15,
+    count: {
+      rows: 15,
+      columns: 15,
+      mines: 15
+    },
     cells: []
   };
 
@@ -65,9 +67,9 @@ export class FieldComponent implements OnInit {
     if (!cell.open) {
       cell.flag = !cell.flag;
       if (cell.flag) {
-        this.field.mines--;
+        this.field.count.mines--;
       } else {
-        this.field.mines++;
+        this.field.count.mines++;
       }
     }
   }
