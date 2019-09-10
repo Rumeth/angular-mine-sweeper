@@ -30,7 +30,6 @@ export class FieldComponent implements OnInit {
   }
 
   open(cell: Cell) {
-    console.log(cell);
     if (!this.field.disabled && !cell.flag && !cell.open) {
       if (!cell.mine && !cell.proximity) {
         let proximity = 0;
@@ -96,5 +95,9 @@ export class FieldComponent implements OnInit {
       }
       mine.styles = '';
     }
+  }
+
+  reset() {
+    this.getFieldCells();
   }
 }

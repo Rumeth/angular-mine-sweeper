@@ -13,6 +13,7 @@ export class FieldService {
       opened: 0,
       flags: 0
     },
+    disabled: false,
     cells: [],
     mines: []
   };
@@ -20,7 +21,7 @@ export class FieldService {
   constructor() { }
 
   getField() {
-    const field: Field = this.field;
+    const field: Field = JSON.parse(JSON.stringify(this.field));
 
     for (let i = 0; i < field.count.rows; i++) {
       field.cells[i] = [];
@@ -34,8 +35,6 @@ export class FieldService {
         };
       }
     }
-
-    console.log(field);
 
     this.setMines(field);
 
