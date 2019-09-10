@@ -5,7 +5,9 @@ export interface Field {
 
   cells?: Cell[];
 
-  mines?:Cell[];
+  mines?: Cell[];
+
+  disabled?: boolean;
 }
 
 export interface Count {
@@ -14,4 +16,8 @@ export interface Count {
   columns?: number;
 
   mines?: number;
+
+  opened?: number;
+
+  flags?: number;
 }

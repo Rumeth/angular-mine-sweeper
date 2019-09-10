@@ -5,10 +5,23 @@ import { Cell } from '../cell/cell.interface';
 
 @Injectable()
 export class FieldService {
+  field: Field = {
+    count: {
+      rows: 15,
+      columns: 15,
+      mines: 15,
+      opened: 0,
+      flags: 0
+    },
+    cells: [],
+    mines: []
+  };
 
   constructor() { }
 
-  getFieldCells(field: Field) {
+  getField() {
+    const field: Field = this.field;
+
     for (let i = 0; i < field.count.rows; i++) {
       field.cells[i] = [];
 
@@ -25,6 +38,8 @@ export class FieldService {
     console.log(field);
 
     this.setMines(field);
+
+    return field;
   }
 
   setMines(field: Field) {

@@ -11,15 +11,7 @@ import { Cell } from '../cell/cell.interface';
   styleUrls: ['./field.component.css']
 })
 export class FieldComponent implements OnInit {
-  field: Field = {
-    count: {
-      rows: 15,
-      columns: 15,
-      mines: 150
-    },
-    cells: [],
-    mines: []
-  };
+  field: Field;
 
   proximity = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -34,12 +26,12 @@ export class FieldComponent implements OnInit {
   }
 
   getFieldCells() {
-    this.fieldService.getFieldCells(this.field);
+    this.field = this.fieldService.getField();
   }
 
   open(cell: Cell) {
     console.log(cell);
-    if (!cell.flag && !cell.open) {
+    if (!this.field.disabled && !cell.flag && !cell.open) {
       if (!cell.mine && !cell.proximity) {
         let proximity = 0;
         const spread = this.fieldService.getChance();
@@ -60,18 +52,49 @@ export class FieldComponent implements OnInit {
       }
       cell.open = true;
 
+      this.field.count.opened++;
+
       cell.styles = this.fieldService.getCellStyle(cell);
+
+      if (cell.mine || (this.field.count.opened === (this.field.count.rows * this.field.count.rows) - this.field.count.mines)) {
+        this.field.disabled = true;
+
+        if (cell.mine) {
+          this.showAllMines();
+        }
+        else {
+          this.flagAllMines();
+        }
+      }
     }
   }
 
   flag(cell: Cell) {
-    if (!cell.open) {
+    if (!this.field.disabled && !cell.open) {
       cell.flag = !cell.flag;
       if (cell.flag) {
-        this.field.count.mines--;
+        this.field.count.flags++;
       } else {
-        this.field.count.mines++;
+        this.field.count.flags--;
       }
+    }
+  }
+
+  showAllMines() {
+    for (let mine of this.field.mines) {
+      if (!mine.flag) {
+        mine.open = true;
+      }
+      mine.styles = '';
+    }
+  }
+
+  flagAllMines() {
+    for (let mine of this.field.mines) {
+      if (!mine.open) {
+        mine.flag = true;
+      }
+      mine.styles = '';
     }
   }
 }
